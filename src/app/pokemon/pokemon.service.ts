@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { POKEMONS } from './api-pokemons';
 import { Pokemon } from './pokemon.models';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
@@ -20,6 +20,21 @@ export class PokemonService {
   getPokemonById(pokemonId: number): Observable<Pokemon> {
     return this.http.get<Pokemon>(`api/pokemons/${pokemonId}`).pipe(
       map(pokemon => pokemon)
+    );
+  }
+
+  updatePokemon(pokemon: Pokemon): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'}) 
+    }
+
+    return this.http.put<boolean>('api/pokemons', pokemon, httpOptions).pipe(
+      map(response => response)
+    );
+  }
+  deletePokemon(pokemonId: number): Observable<boolean> {
+    return this.http.delete<boolean>(`api/pokemons/${pokemonId}`).pipe(
+      map(response => response)
     );
   }
 
