@@ -20,7 +20,14 @@ export class DetailPokemonComponent {
     /* Récupère l'id passé dans l'url par exemple : pokemon/4 => pokemonId va etre égale a 4 */
     const pokemonId: string|null = this.route.snapshot.paramMap.get('id');
     if(pokemonId){
-      this.pokemon = this.pokemonService.getPokemonById(+pokemonId)
+      this.pokemonService.getPokemonById(+pokemonId).subscribe({
+        next: (pokemon) => {
+          this.pokemon = pokemon
+        },
+        error: (err) => {
+          console.log(err)
+        },
+      })
     }
   }
 

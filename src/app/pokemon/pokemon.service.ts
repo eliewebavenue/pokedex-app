@@ -17,8 +17,10 @@ export class PokemonService {
     );
   }
 
-  getPokemonById(pokemonId: number): Pokemon|undefined {
-    return POKEMONS.find(pokemon => pokemon.id == pokemonId)
+  getPokemonById(pokemonId: number): Observable<Pokemon> {
+    return this.http.get<Pokemon>(`api/pokemons/${pokemonId}`).pipe(
+      map(pokemon => pokemon)
+    );
   }
 
   getTypesList(): string[] {

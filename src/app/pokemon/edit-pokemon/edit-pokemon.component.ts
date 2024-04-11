@@ -25,7 +25,14 @@ export class EditPokemonComponent {
   ngOnInit() {
     const pokemonId: string|null = this.route.snapshot.paramMap.get('id');
     if(pokemonId) {
-      this.pokemon = this.pokemonService.getPokemonById(+pokemonId)
+      this.pokemonService.getPokemonById(+pokemonId).subscribe({
+        next: (pokemon) => {
+          this.pokemon = pokemon
+        },
+        error: (err) => {
+          console.log(err)
+        },
+      })
     }
   }
 
