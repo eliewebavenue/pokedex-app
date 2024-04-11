@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Liste de pokémons</h1>
+    
+    <div class="row mt-4">
+        <div class="col-md-4 col-xl-3" *ngFor="let pokemon of pokemonList">
+            <div class="card mb-3" style="max-width: 540px;" pkmBorderCard="pink" 
+            (click)="goToPokemon(pokemon)"> 
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img [src]="pokemon.picture" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pokemon.name | uppercase }}</h5>
+                            <p class="card-text"></p>
+                            <p class="card-text"><small class="text-body-secondary">{{ pokemon.created | date:'d/m/Y' }}</small></p>
+                            <span *ngFor="let type of pokemon.types" class="{{ type | pokemonTypeColor }}">
+                                {{ type }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
