@@ -20,6 +20,14 @@ export class LoginComponent {
 
   ngOnInit(){}
 
+  setMessage() {
+    if(this.authService.isLoggedIn){
+      this.message = "Vous êtes connecté !"
+    }else{
+      this.message = ' Identifiant ou mot de passe incorrect'
+    }
+  }
+
   login(){
     this.message = 'Tentative de connexion en cours...';
     const name = this.loginForm?.get('name')?.value
@@ -27,6 +35,7 @@ export class LoginComponent {
 
     this.authService.login(name, password).subscribe({
       next: (isLoggedIn)=> {
+        this.setMessage();
         if(isLoggedIn){
           this.router.navigate(['/pokemons']);
         } else {
