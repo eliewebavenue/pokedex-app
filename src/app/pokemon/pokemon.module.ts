@@ -9,22 +9,24 @@ import { PokemonFormComponent } from './pokemon-form/pokemon-form.component';
 import { FormsModule } from '@angular/forms';
 import { EditPokemonComponent } from './edit-pokemon/edit-pokemon.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { authGuard  } from '../auth.guard';
+import { AuthGuard  } from '../auth.guard';
 
 
 const pokemonRoutes: Routes = [
   {
     path: 'pokemons', 
-    component: ListPokemonComponent
+    component: ListPokemonComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'pokemon/:id', 
-    component: DetailPokemonComponent
+    component: DetailPokemonComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'edit/pokemon/:id', 
     component: EditPokemonComponent, 
-    canActivate: [authGuard]
+    canActivate: [AuthGuard]
   },
 ];
 
